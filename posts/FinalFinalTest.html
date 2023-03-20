@@ -227,446 +227,135 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="cleaning-statistical-analysis" class="level1">
 <h1>Cleaning &amp; Statistical Analysis</h1>
 <p>What is now stored in “my literature dataset” are 34 works ranging from the years 1500-1902 as links from Project Gutenberg.</p>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># making dataframe</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data set literature.csv"</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># output the dataframe</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                                       Gutenberg Link  Date  \
-0   https://www.gutenberg.org/files/1232/1232-h/12...  1532   
-1       https://www.gutenberg.org/cache/epub/53489...  1554   
-2       https://www.gutenberg.org/cache/epub/29622...  1549   
-3       https://www.gutenberg.org/files/15272/1527...  1590   
-4       https://www.gutenberg.org/files/49065/4906...  1511   
-5       https://www.gutenberg.org/cache/epub/9371/...  1635   
-6       https://www.gutenberg.org/files/55426/5542...  1619   
-7       https://www.gutenberg.org/cache/epub/10847...  1605   
-8       https://www.gutenberg.org/files/996/996-h/...  1617   
-9       https://www.gutenberg.org/files/48688/4868...  1603   
-10      https://www.gutenberg.org/files/20890/2089...  1698   
-11      https://www.gutenberg.org/files/19116/1911...  1620   
-12      https://www.gutenberg.org/files/66359/6635...  1651   
-13      https://www.gutenberg.org/cache/epub/20/pg...  1644   
-14      https://www.gutenberg.org/cache/epub/4391/...  1700   
-15  https://www.gutenberg.org/files/1292/1292-h/12...  1759   
-16      https://www.gutenberg.org/cache/epub/1079/...  1796   
-17      https://www.gutenberg.org/cache/epub/601/p...  1719   
-18      https://www.gutenberg.org/cache/epub/521/p...  1764   
-19      https://www.gutenberg.org/cache/epub/696/p...  1740   
-20      https://www.gutenberg.org/files/6124/6124-...  1719   
-21      https://www.gutenberg.org/cache/epub/67612...  1726   
-22      https://www.gutenberg.org/files/829/829-h/...  1759   
-23      https://www.gutenberg.org/cache/epub/652/p...  1778   
-24   https://www.gutenberg.org/cache/epub/7371/pg7...  1790   
-25      https://www.gutenberg.org/cache/epub/345/p...  1897   
-26      https://www.gutenberg.org/cache/epub/84/pg...  1847   
-27      https://www.gutenberg.org/cache/epub/1260/...  1831   
-28      https://www.gutenberg.org/cache/epub/2610/...  1902   
-29      https://www.gutenberg.org/cache/epub/2852/...  1851   
-30      https://www.gutenberg.org/cache/epub/77/pg...  1819   
-31      https://www.gutenberg.org/cache/epub/41/pg...  1850   
-32      https://www.gutenberg.org/cache/epub/4274/...  1866   
-33      https://www.gutenberg.org/cache/epub/209/p...  1898   
-
-                                                Title  \
-0                                          The Prince   
-1                     The Life of Lazarillo de Tormes   
-2                           The Book of Common Prayer   
-3                                   The Faerie Queene   
-4                                  The Book of Luther   
-5                                          Four Plays   
-6                                   The Maids Tragedy   
-7                          The History of Don Quixote   
-8                                          The Poems    
-9                       The Revenge of Bussy D'Ambois   
-10  A Short View of the Immorality, and Profanenes...   
-11              A Journal of the Pilgrims at Plymouth   
-12                                         Leviathan    
-13                           Principles of Philosophy   
-14                              The Way of the World    
-15  The Life and Opinions of Tristram Shandy, Gent...   
-16                                The Monk: A Romance   
-17        The Life and Adventures of Robinson Crusoe    
-18                             The Castle of Otranto    
-19                        Pamela; or, Virtue Rewarded   
-20                                     Love in Excess   
-21                                 Gulliver’s Travels   
-22                     Rasselas, Prince of Abyssinia    
-23                                           Evelina    
-24                                 A Sicilian Romance   
-25                                          Dracula     
-26                       Jane Eyre: An Autobiography    
-27                               Notre-Dame de Paris    
-28                     The Hound of the Baskervilles    
-29                     The House of the Seven Gables    
-30                       The Legend of Sleepy Hollow    
-31                               The Scarlet Letter     
-32                               Wives and Daughters    
-33                            The Turn of the Screw     
-
-                                Author  
-0                  Niccolò Machiavelli  
-1                            Anonymous  
-2                       Thomas Cranmer  
-3                       Edmund Spencer  
-4                        Martin Luther  
-5                    William Wycherley  
-6   Francis Beaumont and John Fletcher  
-7                  Miguel de Cervantes  
-8                           John Donne  
-9                       George Chapman  
-10                   by Jeremy Collier  
-11                     Dwight B. Heath  
-12                       Thomas Hobbes  
-13                     René Descartes   
-14                   William Congreve   
-15                    Laurence Sterne   
-16                        M. G. Lewis   
-17                       Daniel Defoe   
-18                      Horace Walpole  
-19                   Samuel Richardson  
-20                       Eliza Haywood  
-21                      Jonathan Swift  
-22                      Samuel Johnson  
-23                       Fanny Burney   
-24                 Ann Ward Radcliffe   
-25                        Bram Stoker   
-26                   Charlotte Brontë   
-27                        Victor Hugo   
-28                 Arthur Conan Doyle   
-29                Nathaniel Hawthorne   
-30                  Washington Irving   
-31                Nathaniel Hawthorne   
-32         Elizabeth Cleghorn Gaskell   
-33                        Henry James   </code></pre>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># output the dataframe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data from the CSV file</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data set literature.csv'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows with missing URLs</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df.dropna(subset<span class="op">=</span>[<span class="st">'Gutenberg Link'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each URL in the DataFrame and download the content</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> row[<span class="st">'Gutenberg Link'</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(url)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt'</span>, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        f.write(response.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data from the CSV file</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data set literature.csv'</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows with missing URLs</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df.dropna(subset<span class="op">=</span>[<span class="st">'Gutenberg Link'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each URL in the DataFrame and download the content</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> row[<span class="st">'Gutenberg Link'</span>]</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(url)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt'</span>, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        f.write(response.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define the URL to download</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://www.gutenberg.org/cache/epub/41256/pg41256-images.html'</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># define the directory path to save the file</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> <span class="st">'1790-1902_texts'</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># define the directory path to save the file</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> <span class="st">'1700-1800_texts'</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># define the directory path to save the file</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> <span class="st">'1500-1700_texts'</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># create the directory if it doesn't exist</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(directory):</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    os.makedirs(directory)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># download the webpage</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># save the HTML file</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    f.write(response.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define the URL to download</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://www.gutenberg.org/cache/epub/41256/pg41256-images.html'</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># define the directory path to save the file</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> <span class="st">'1700-1800'</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># create the directory if it doesn't exist</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(directory):</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    os.makedirs(directory)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># define the filename to save the file as</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>filename <span class="op">=</span> os.path.join(directory, <span class="st">'pg41256-images.html'</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># download the webpage</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># save the HTML file</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    f.write(response.content)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The webpage has been downloaded and saved as </span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The webpage has been downloaded and saved as 1700-1800/pg41256-images.html.</code></pre>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add custom stopwords</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>custom_stop_words <span class="op">=</span> [<span class="st">"new"</span>, <span class="st">"york"</span>, <span class="st">"city"</span>, <span class="st">"like"</span>, <span class="st">"would"</span>]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> stop_words.union(custom_stop_words)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a helper function to count occurrences of a word in a file</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_word_in_file(filename, word):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        contents <span class="op">=</span> f.read()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> contents.lower().split()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        word_count <span class="op">=</span> words.count(word)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> word_count</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the dataframe</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data set literature.csv"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each book file and count the number of times the word "time" appears</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>time_counts <span class="op">=</span> []</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f'book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt'</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    word_count <span class="op">=</span> count_word_in_file(filename, <span class="st">'time'</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    time_counts.append(word_count)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the time count values as a new column in the dataframe</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Time Count'</span>] <span class="op">=</span> time_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add custom stopwords</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>custom_stop_words <span class="op">=</span> [<span class="st">"new"</span>, <span class="st">"york"</span>, <span class="st">"city"</span>, <span class="st">"like"</span>, <span class="st">"would"</span>]</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> stop_words.union(custom_stop_words)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a helper function to count occurrences of a word in a file</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_word_in_file(filename, word):</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        contents <span class="op">=</span> f.read()</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> contents.lower().split()</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        word_count <span class="op">=</span> words.count(word)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> word_count</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the dataframe</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data set literature.csv"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each book file and count the number of times the word "time" appears</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>time_counts <span class="op">=</span> []</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f'book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt'</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    word_count <span class="op">=</span> count_word_in_file(filename, <span class="st">'time'</span>)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    time_counts.append(word_count)</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the time count values as a new column in the dataframe</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Time Count'</span>] <span class="op">=</span> time_counts</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the updated dataframe</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                                       Gutenberg Link  Date  \
-0   https://www.gutenberg.org/files/1232/1232-h/12...  1532   
-1       https://www.gutenberg.org/cache/epub/53489...  1554   
-2       https://www.gutenberg.org/cache/epub/29622...  1549   
-3       https://www.gutenberg.org/files/15272/1527...  1590   
-4       https://www.gutenberg.org/files/49065/4906...  1511   
-5       https://www.gutenberg.org/cache/epub/9371/...  1635   
-6       https://www.gutenberg.org/files/55426/5542...  1619   
-7       https://www.gutenberg.org/cache/epub/10847...  1605   
-8       https://www.gutenberg.org/files/996/996-h/...  1617   
-9       https://www.gutenberg.org/files/48688/4868...  1603   
-10      https://www.gutenberg.org/files/20890/2089...  1698   
-11      https://www.gutenberg.org/files/19116/1911...  1620   
-12      https://www.gutenberg.org/files/66359/6635...  1651   
-13      https://www.gutenberg.org/cache/epub/20/pg...  1644   
-14      https://www.gutenberg.org/cache/epub/4391/...  1700   
-15  https://www.gutenberg.org/files/1292/1292-h/12...  1759   
-16      https://www.gutenberg.org/cache/epub/1079/...  1796   
-17      https://www.gutenberg.org/cache/epub/601/p...  1719   
-18      https://www.gutenberg.org/cache/epub/521/p...  1764   
-19      https://www.gutenberg.org/cache/epub/696/p...  1740   
-20      https://www.gutenberg.org/files/6124/6124-...  1719   
-21      https://www.gutenberg.org/cache/epub/67612...  1726   
-22      https://www.gutenberg.org/files/829/829-h/...  1759   
-23      https://www.gutenberg.org/cache/epub/652/p...  1778   
-24   https://www.gutenberg.org/cache/epub/7371/pg7...  1790   
-25      https://www.gutenberg.org/cache/epub/345/p...  1897   
-26      https://www.gutenberg.org/cache/epub/84/pg...  1847   
-27      https://www.gutenberg.org/cache/epub/1260/...  1831   
-28      https://www.gutenberg.org/cache/epub/2610/...  1902   
-29      https://www.gutenberg.org/cache/epub/2852/...  1851   
-30      https://www.gutenberg.org/cache/epub/77/pg...  1819   
-31      https://www.gutenberg.org/cache/epub/41/pg...  1850   
-32      https://www.gutenberg.org/cache/epub/4274/...  1866   
-33      https://www.gutenberg.org/cache/epub/209/p...  1898   
-
-                                                Title  \
-0                                          The Prince   
-1                     The Life of Lazarillo de Tormes   
-2                           The Book of Common Prayer   
-3                                   The Faerie Queene   
-4                                  The Book of Luther   
-5                                          Four Plays   
-6                                   The Maids Tragedy   
-7                          The History of Don Quixote   
-8                                          The Poems    
-9                       The Revenge of Bussy D'Ambois   
-10  A Short View of the Immorality, and Profanenes...   
-11              A Journal of the Pilgrims at Plymouth   
-12                                         Leviathan    
-13                           Principles of Philosophy   
-14                              The Way of the World    
-15  The Life and Opinions of Tristram Shandy, Gent...   
-16                                The Monk: A Romance   
-17        The Life and Adventures of Robinson Crusoe    
-18                             The Castle of Otranto    
-19                        Pamela; or, Virtue Rewarded   
-20                                     Love in Excess   
-21                                 Gulliver’s Travels   
-22                     Rasselas, Prince of Abyssinia    
-23                                           Evelina    
-24                                 A Sicilian Romance   
-25                                          Dracula     
-26                       Jane Eyre: An Autobiography    
-27                               Notre-Dame de Paris    
-28                     The Hound of the Baskervilles    
-29                     The House of the Seven Gables    
-30                       The Legend of Sleepy Hollow    
-31                               The Scarlet Letter     
-32                               Wives and Daughters    
-33                            The Turn of the Screw     
-
-                                Author  Time Count  
-0                  Niccolò Machiavelli          76  
-1                            Anonymous          34  
-2                       Thomas Cranmer         192  
-3                       Edmund Spencer          33  
-4                        Martin Luther         173  
-5                    William Wycherley          24  
-6   Francis Beaumont and John Fletcher         105  
-7                  Miguel de Cervantes          15  
-8                           John Donne         494  
-9                       George Chapman          48  
-10                   by Jeremy Collier          45  
-11                     Dwight B. Heath          29  
-12                       Thomas Hobbes          30  
-13                     René Descartes           26  
-14                   William Congreve           32  
-15                    Laurence Sterne           23  
-16                        M. G. Lewis          188  
-17                       Daniel Defoe          128  
-18                      Horace Walpole         175  
-19                   Samuel Richardson          21  
-20                       Eliza Haywood         144  
-21                      Jonathan Swift         107  
-22                      Samuel Johnson         102  
-23                       Fanny Burney          100  
-24                 Ann Ward Radcliffe          101  
-25                        Bram Stoker          249  
-26                   Charlotte Brontë           76  
-27                        Victor Hugo          155  
-28                 Arthur Conan Doyle          165  
-29                Nathaniel Hawthorne           55  
-30                  Washington Irving           54  
-31                Nathaniel Hawthorne           15  
-32         Elizabeth Cleghorn Gaskell          392  
-33                        Henry James           44  </code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_words_from_file(filename):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        contents <span class="op">=</span> f.read()</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> <span class="st">''</span>.join(c <span class="cf">if</span> c.isalpha() <span class="cf">else</span> <span class="st">' '</span> <span class="cf">for</span> c <span class="kw">in</span> contents).lower().split()</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> words</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> words</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df)):</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f"book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt"</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> extract_words_from_file(filename)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">len</span>(words)<span class="sc">}</span><span class="ss"> words'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>book0.txt: 56745 words
-book1.txt: 38625 words
-book2.txt: 242346 words
-book3.txt: 153821 words
-book4.txt: 240318 words
-book5.txt: 41421 words
-book6.txt: 218643 words
-book7.txt: 72763 words
-book8.txt: 481034 words
-book9.txt: 271811 words
-book10.txt: 144473 words
-book11.txt: 43107 words
-book12.txt: 49142 words
-book13.txt: 101352 words
-book14.txt: 39650 words
-book15.txt: 40238 words
-book16.txt: 231164 words
-book17.txt: 150819 words
-book18.txt: 128568 words
-book19.txt: 44877 words
-book20.txt: 240349 words
-book21.txt: 110908 words
-book22.txt: 113452 words
-book23.txt: 45941 words
-book24.txt: 73860 words
-book25.txt: 178471 words
-book26.txt: 82533 words
-book27.txt: 210948 words
-book28.txt: 211650 words
-book29.txt: 70261 words
-book30.txt: 117161 words
-book31.txt: 16477 words
-book32.txt: 299005 words
-book33.txt: 51914 words</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each row in the DataFrame and print the title, author, and date</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> row[<span class="st">'Title'</span>]</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    author <span class="op">=</span> row[<span class="st">'Author'</span>]</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    date <span class="op">=</span> row[<span class="st">'Date'</span>]</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Book </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: '</span><span class="sc">{</span>title<span class="sc">}</span><span class="ss">' by </span><span class="sc">{</span>author<span class="sc">}</span><span class="ss">, published in </span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_word_in_file(filename, word):</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        contents <span class="op">=</span> f.read()</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> contents.lower().split()</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        word_count <span class="op">=</span> words.count(word)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> word_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Book 0: 'The Prince' by Niccolò Machiavelli, published in 1532
-Book 1: 'The Life of Lazarillo de Tormes' by Anonymous, published in 1554
-Book 2: 'The Book of Common Prayer' by Thomas Cranmer, published in 1549
-Book 3: 'The Faerie Queene' by Edmund Spencer, published in 1590
-Book 4: 'The Book of Luther' by Martin Luther, published in 1511
-Book 5: 'Four Plays' by William Wycherley, published in 1635
-Book 6: ' The Maids Tragedy' by Francis Beaumont and John Fletcher, published in 1619
-Book 7: ' The History of Don Quixote' by Miguel de Cervantes, published in 1605
-Book 8: 'The Poems ' by John Donne, published in 1617
-Book 9: 'The Revenge of Bussy D'Ambois' by George Chapman, published in 1603
-Book 10: 'A Short View of the Immorality, and Profaneness of the English Stage' by by Jeremy Collier, published in 1698
-Book 11: 'A Journal of the Pilgrims at Plymouth' by Dwight B. Heath, published in 1620
-Book 12: 'Leviathan ' by Thomas Hobbes, published in 1651
-Book 13: 'Principles of Philosophy' by René Descartes , published in 1644
-Book 14: 'The Way of the World ' by William Congreve , published in 1700
-Book 15: 'The Life and Opinions of Tristram Shandy, Gentleman ' by Laurence Sterne , published in 1759
-Book 16: 'The Monk: A Romance' by M. G. Lewis , published in 1796
-Book 17: 'The Life and Adventures of Robinson Crusoe ' by Daniel Defoe , published in 1719
-Book 18: 'The Castle of Otranto ' by Horace Walpole, published in 1764
-Book 19: 'Pamela; or, Virtue Rewarded' by Samuel Richardson, published in 1740
-Book 20: 'Love in Excess' by Eliza Haywood, published in 1719
-Book 21: 'Gulliver’s Travels' by Jonathan Swift, published in 1726
-Book 22: 'Rasselas, Prince of Abyssinia ' by Samuel Johnson, published in 1759
-Book 23: 'Evelina ' by Fanny Burney , published in 1778
-Book 24: 'A Sicilian Romance' by Ann Ward Radcliffe , published in 1790
-Book 25: 'Dracula  ' by Bram Stoker , published in 1897
-Book 26: 'Jane Eyre: An Autobiography ' by Charlotte Brontë , published in 1847
-Book 27: 'Notre-Dame de Paris ' by Victor Hugo , published in 1831
-Book 28: 'The Hound of the Baskervilles ' by Arthur Conan Doyle , published in 1902
-Book 29: 'The House of the Seven Gables ' by Nathaniel Hawthorne , published in 1851
-Book 30: 'The Legend of Sleepy Hollow ' by Washington Irving , published in 1819
-Book 31: 'The Scarlet Letter  ' by Nathaniel Hawthorne , published in 1850
-Book 32: 'Wives and Daughters ' by Elizabeth Cleghorn Gaskell , published in 1866
-Book 33: 'The Turn of the Screw  ' by Henry James , published in 1898</code></pre>
-</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_words_from_file(filename):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        contents <span class="op">=</span> f.read()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> <span class="st">''</span>.join(c <span class="cf">if</span> c.isalpha() <span class="cf">else</span> <span class="st">' '</span> <span class="cf">for</span> c <span class="kw">in</span> contents).lower().split()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> words</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> words</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df)):</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f"book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt"</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> extract_words_from_file(filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="a-broad-stroke" class="level1">
 <h1>A Broad Stroke</h1>
 <p>The expansion of London during the latter half of the 18th century saw the rise of industry, with the first modern factory, the Slater Mill. While this benefited humanity in ways that were not immediately apparent, the damage this would do would be felt to the present day such as deforestation, increased carbon dioxide emissions, and constant light pollution. The industrialization of cities like London also polluted human life, with young children being forced into dangerous factory work and losing cherished innocence through harsh working conditions. The damages and pain inflicted on children and the working classes were not the only effects of industrialization, it also forever changed humanity’s natural perception of time. This period of history marked the beginning of a significant shift in human thought and behavior, as people began to think of time as something that could be measured, standardized, and used for economic purposes.</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the dataset</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data set literature.csv"</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new column for the word count of "time" in each book</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Time Count'</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each book file and count the number of times the word "time" appears</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f'book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt'</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        contents <span class="op">=</span> f.read()</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> contents.lower().split()</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        word_count <span class="op">=</span> words.count(<span class="st">'time'</span>)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        df.at[i, <span class="st">'Time Count'</span>] <span class="op">=</span> word_count</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the dataframe to only include books published between 1532 and 1902</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="op">=</span> df[(df[<span class="st">'Date'</span>] <span class="op">&gt;=</span> <span class="dv">1550</span>) <span class="op">&amp;</span> (df[<span class="st">'Date'</span>] <span class="op">&lt;=</span> <span class="dv">1902</span>)]</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co"># group the filtered dataframe by year and sum the time counts</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>grouped_df <span class="op">=</span> filtered_df.groupby(<span class="st">'Date'</span>)[<span class="st">'Time Count'</span>].<span class="bu">sum</span>().reset_index()</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a histogram of the time count over the years</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>plt.hist(grouped_df[<span class="st">'Date'</span>], bins<span class="op">=</span><span class="dv">20</span>, weights<span class="op">=</span>grouped_df[<span class="st">'Time Count'</span>], color<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Usage of the word "time" in novels published from 1532 to 1902'</span>)</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Date'</span>)</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency of "time"'</span>)</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the dataset</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data set literature.csv"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new column for the word count of "time" in each book</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Time Count'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each book file and count the number of times the word "time" appears</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f'book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt'</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        contents <span class="op">=</span> f.read()</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> contents.lower().split()</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        word_count <span class="op">=</span> words.count(<span class="st">'time'</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        df.at[i, <span class="st">'Time Count'</span>] <span class="op">=</span> word_count</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the dataframe to only include books published between 1532 and 1902</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="op">=</span> df[(df[<span class="st">'Date'</span>] <span class="op">&gt;=</span> <span class="dv">1550</span>) <span class="op">&amp;</span> (df[<span class="st">'Date'</span>] <span class="op">&lt;=</span> <span class="dv">1902</span>)]</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># group the filtered dataframe by year and sum the time counts</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>grouped_df <span class="op">=</span> filtered_df.groupby(<span class="st">'Date'</span>)[<span class="st">'Time Count'</span>].<span class="bu">sum</span>().reset_index()</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a histogram of the time count over the years</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>plt.hist(grouped_df[<span class="st">'Date'</span>], bins<span class="op">=</span><span class="dv">20</span>, weights<span class="op">=</span>grouped_df[<span class="st">'Time Count'</span>], color<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Usage of the word "time" in novels published from 1532 to 1902'</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Date'</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency of "time"'</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="FinalFinalTest_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
 </div>
@@ -680,56 +369,42 @@ Book 33: 'The Turn of the Screw  ' by Henry James , published in 1898</code></pr
 <h1>1790 to 1902</h1>
 <p>The period from 1800 to 1902 saw significant changes in the world, with the emergence of industrialization and the rise of the working class. The first set of literary works that were chosen were from this period of time. Within a corpus of ten works of Gothic literature from across the century, ranging from Mary Shelly’s Frankenstein to Bram Stoker’s <em>Dracula</em>, the word time was used a total of 2,320 times. This is unsurprising, as factory work and living by the clock was basically a standard for the working class in the Victorian era. Not to mention the construction of Big Ben in 1843, would have cemented the concept of time in everyone’s minds. Not only Big Ben, but the railway as well made the passage of time a constant in Victorian thought. So much so, that scholars read <em>Dracula</em> as a manifestation of this. Some claim that Stoker critiques the automaton-like nature of living by the clock. Johnathan Harker’s trip across the forest to the Count’s place of residence is viewed as time travel to a place locked in the past, and while this past is full of fears rooted in superstition, it is still quaint. Big Ben, the railroads, and <em>Dracula</em> all lead back to industrialization and factory work, showing how living by the clock dominated cultural thought. This is seen in the fact that even though <em>Dracula</em> is told through a retelling of journal entries, as David Seed (1985, 74) states “nothing stands in the way of the narrative’s linear impetus”, like the clock that continously ticks forward. The fact that the novels chosen for this dataset through this time period have the highest word count of “time” perfectly demonstrates this.</p>
 <p>I chose this wide ranging span of years because in 1902, <em>Hound of the Baskervilles</em> by Sir Arthur Conan Doyle was published, which still heavily relied on Victorian values. Ann Radcliff’s <em>A Sicilian Romance</em> also predicts Victorian values and holds Gothic values held in Victorian decades.</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install wordcloud</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: wordcloud in /opt/conda/lib/python3.10/site-packages (1.8.2.2)
-Requirement already satisfied: pillow in /opt/conda/lib/python3.10/site-packages (from wordcloud) (9.4.0)
-Requirement already satisfied: numpy&gt;=1.6.1 in /opt/conda/lib/python3.10/site-packages (from wordcloud) (1.24.1)
-Requirement already satisfied: matplotlib in /opt/conda/lib/python3.10/site-packages (from wordcloud) (3.6.3)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/conda/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (1.0.7)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/conda/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (4.38.0)
-Requirement already satisfied: cycler&gt;=0.10 in /opt/conda/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (0.11.0)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/conda/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (2.8.2)
-Requirement already satisfied: packaging&gt;=20.0 in /opt/conda/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (23.0)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /opt/conda/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (3.0.9)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/conda/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (1.4.4)
-Requirement already satisfied: six&gt;=1.5 in /opt/conda/lib/python3.10/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;wordcloud) (1.16.0)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a custom stopwords list</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'href'</span>, <span class="st">'div'</span>, <span class="st">'span'</span>, <span class="st">'class'</span>, <span class="st">'dquo'</span>])</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'br'</span>, <span class="st">'ldquo'</span>, <span class="st">'p'</span>, <span class="st">'mdash'</span>, <span class="st">'footnote'</span>, <span class="st">'rsquo'</span>,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'rdquo'</span>, <span class="st">'pagenum'</span>, <span class="st">'u'</span>,<span class="st">'width'</span>,<span class="st">'nbsp'</span>, <span class="st">'id'</span>, <span class="st">'FNanchor'</span>, <span class="st">'name'</span>, <span class="st">'page'</span>, </span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'pagei'</span>, <span class="st">'hb'</span>, <span class="st">'stanza'</span>, <span class="st">'said'</span>, <span class="st">'one'</span>, <span class="st">'say'</span>, <span class="st">'would'</span>, <span class="st">'right'</span>, <span class="st">'lnumber'</span>, <span class="st">'Quixote'</span>, <span class="st">'Sancho'</span>,</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'linenum'</span>, <span class="st">'F'</span>, <span class="st">'label'</span>, <span class="st">'label'</span>, <span class="st">'pfn'</span>, <span class="st">'F'</span>, <span class="st">'h'</span>, <span class="st">'td td'</span>, <span class="st">'Luther'</span>, <span class="st">'may'</span>, <span class="st">'see'</span>, <span class="st">'make'</span>, <span class="st">'man'</span>, <span class="st">'come'</span>,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'b'</span>, <span class="st">'trtd'</span>, <span class="st">'thy'</span>, <span class="st">'thee'</span>, <span class="st">'like'</span>, <span class="st">'td td'</span>, <span class="st">'tr'</span>, <span class="st">'td'</span>, <span class="st">'pg'</span>, <span class="st">'could'</span>, <span class="st">'upon'</span>, <span class="st">'much'</span>, <span class="st">'made'</span>, <span class="st">'shall'</span>])</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the text files from the directory</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> os.listdir(<span class="st">'1790-1902_texts'</span>):</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add an if statement to skip hidden directories</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> filename.startswith(<span class="st">'.'</span>):</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'1790-1902_texts/</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'ISO-8859-1'</span>) <span class="im">as</span> f:</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>            text <span class="op">+=</span> f.read()</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove non-alphabetic characters</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> re.sub(<span class="st">'[^A-Za-z]+'</span>, <span class="st">' '</span>, text)</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the wordcloud</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> WordCloud(width<span class="op">=</span><span class="dv">500</span>, height<span class="op">=</span><span class="dv">600</span>, background_color<span class="op">=</span><span class="st">'black'</span>, stopwords<span class="op">=</span>custom_stopwords).generate(text)</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the wordcloud</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>plt.imshow(wc, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a custom stopwords list</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'href'</span>, <span class="st">'div'</span>, <span class="st">'span'</span>, <span class="st">'class'</span>, <span class="st">'dquo'</span>])</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'br'</span>, <span class="st">'ldquo'</span>, <span class="st">'p'</span>, <span class="st">'mdash'</span>, <span class="st">'footnote'</span>, <span class="st">'rsquo'</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'rdquo'</span>, <span class="st">'pagenum'</span>, <span class="st">'u'</span>,<span class="st">'width'</span>,<span class="st">'nbsp'</span>, <span class="st">'id'</span>, <span class="st">'FNanchor'</span>, <span class="st">'name'</span>, <span class="st">'page'</span>, </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'pagei'</span>, <span class="st">'hb'</span>, <span class="st">'stanza'</span>, <span class="st">'said'</span>, <span class="st">'one'</span>, <span class="st">'say'</span>, <span class="st">'would'</span>, <span class="st">'right'</span>, <span class="st">'lnumber'</span>, <span class="st">'Quixote'</span>, <span class="st">'Sancho'</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'linenum'</span>, <span class="st">'F'</span>, <span class="st">'label'</span>, <span class="st">'label'</span>, <span class="st">'pfn'</span>, <span class="st">'F'</span>, <span class="st">'h'</span>, <span class="st">'td td'</span>, <span class="st">'Luther'</span>, <span class="st">'may'</span>, <span class="st">'see'</span>, <span class="st">'make'</span>, <span class="st">'man'</span>, <span class="st">'come'</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'b'</span>, <span class="st">'trtd'</span>, <span class="st">'thy'</span>, <span class="st">'thee'</span>, <span class="st">'like'</span>, <span class="st">'td td'</span>, <span class="st">'tr'</span>, <span class="st">'td'</span>, <span class="st">'pg'</span>, <span class="st">'could'</span>, <span class="st">'upon'</span>, <span class="st">'much'</span>, <span class="st">'made'</span>, <span class="st">'shall'</span>])</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the text files from the directory</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> os.listdir(<span class="st">'1790-1902_texts'</span>):</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add an if statement to skip hidden directories</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> filename.startswith(<span class="st">'.'</span>):</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'1790-1902_texts/</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'ISO-8859-1'</span>) <span class="im">as</span> f:</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>            text <span class="op">+=</span> f.read()</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove non-alphabetic characters</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> re.sub(<span class="st">'[^A-Za-z]+'</span>, <span class="st">' '</span>, text)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the wordcloud</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> WordCloud(width<span class="op">=</span><span class="dv">500</span>, height<span class="op">=</span><span class="dv">600</span>, background_color<span class="op">=</span><span class="st">'black'</span>, stopwords<span class="op">=</span>custom_stopwords).generate(text)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the wordcloud</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>plt.imshow(wc, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="FinalFinalTest_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
@@ -739,37 +414,37 @@ Requirement already satisfied: six&gt;=1.5 in /opt/conda/lib/python3.10/site-pac
 <section id="section" class="level1">
 <h1>1700-1800</h1>
 <p>From Daniel Defoe’s Robinson Crusoe to Laurence Sterne’s <em>The Life and Opinions of Tristram Shandy, Gentleman,</em> and into the beginnings of Gothic literature, the notion of precise time began seeping into thought between the years 1700 and 1800. The 1,743 instances of the word time, in this subset of works, is a clear statement of the growing phenomenon of relying on the clock. The actual beginnings of the Industrial Revolution are hotly debated, with some placing the start of it around 1750, and others saying around 1760. A novel such as <em>Tristram Shandy</em> would support the former with its famous final lines of the opening page “‘pray, my dear,’ quoth my mother’ have you not forgot to wind up the clock?” (Sterne, 1750, 6). On this page, the narrator Tristram, blames this interruption by his mother during his parents’ intimacy for him being generally unlucky. This can be attributed to the rise of the Industrial Revolution, which led to significant change in how people perceived time and the value of their time. As scholar Amit Yahevstates “during this period clocks came to control industrial production” (2018, 873). Tristram’s father was a man so reliant on the clock, that every little bit of his life was dependent on its ticks. It would make sense then for the question to be such a pivotal one, as it interrupted the most important aspect of production to an industrial society: the procreation of new life. Since, as is well known, the Industrial Revolution was notorious for employing massive amounts of children under extremely poor working conditions.</p>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a custom stopwords list</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'href'</span>, <span class="st">'div'</span>, <span class="st">'span'</span>, <span class="st">'class'</span>, <span class="st">'dquo'</span>])</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'br'</span>, <span class="st">'ldquo'</span>, <span class="st">'p'</span>, <span class="st">'mdash'</span>, <span class="st">'footnote'</span>, <span class="st">'rsquo'</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'rdquo'</span>, <span class="st">'pagenum'</span>, <span class="st">'u'</span>,<span class="st">'width'</span>,<span class="st">'nbsp'</span>, <span class="st">'id'</span>, <span class="st">'FNanchor'</span>, <span class="st">'name'</span>, <span class="st">'page'</span>, </span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'pagei'</span>, <span class="st">'hb'</span>, <span class="st">'stanza'</span>, <span class="st">'said'</span>, <span class="st">'one'</span>, <span class="st">'say'</span>, <span class="st">'would'</span>, <span class="st">'right'</span>, <span class="st">'lnumber'</span>, <span class="st">'Quixote'</span>, <span class="st">'Sancho'</span>,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'linenum'</span>, <span class="st">'F'</span>, <span class="st">'label'</span>, <span class="st">'label'</span>, <span class="st">'pfn'</span>, <span class="st">'F'</span>, <span class="st">'h'</span>, <span class="st">'td td'</span>, <span class="st">'Luther'</span>, <span class="st">'may'</span>, <span class="st">'see'</span>, <span class="st">'make'</span>, <span class="st">'man'</span>, <span class="st">'come'</span>,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'b'</span>, <span class="st">'trtd'</span>, <span class="st">'thy'</span>, <span class="st">'thee'</span>, <span class="st">'like'</span>, <span class="st">'td td'</span>, <span class="st">'tr'</span>, <span class="st">'td'</span>, <span class="st">'pg'</span>, <span class="st">'could'</span>, <span class="st">'upon'</span>, <span class="st">'much'</span>, <span class="st">'made'</span>, <span class="st">'shall'</span>, <span class="st">'well'</span>])</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the text files from the directory</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> os.listdir(<span class="st">'1700-1800_texts'</span>):</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add an if statement to skip hidden directories</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> filename.startswith(<span class="st">'.'</span>):</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'1700-1800_texts/</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'ISO-8859-1'</span>) <span class="im">as</span> f:</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>            text <span class="op">+=</span> f.read()</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove non-alphabetic characters</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> re.sub(<span class="st">'[^A-Za-z]+'</span>, <span class="st">' '</span>, text)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the wordcloud</span></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> WordCloud(width<span class="op">=</span><span class="dv">500</span>, height<span class="op">=</span><span class="dv">600</span>, background_color<span class="op">=</span><span class="st">'black'</span>, stopwords<span class="op">=</span>custom_stopwords).generate(text)</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the wordcloud</span></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>plt.imshow(wc, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="FinalFinalTest_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a custom stopwords list</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'href'</span>, <span class="st">'div'</span>, <span class="st">'span'</span>, <span class="st">'class'</span>, <span class="st">'dquo'</span>])</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'br'</span>, <span class="st">'ldquo'</span>, <span class="st">'p'</span>, <span class="st">'mdash'</span>, <span class="st">'footnote'</span>, <span class="st">'rsquo'</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'rdquo'</span>, <span class="st">'pagenum'</span>, <span class="st">'u'</span>,<span class="st">'width'</span>,<span class="st">'nbsp'</span>, <span class="st">'id'</span>, <span class="st">'FNanchor'</span>, <span class="st">'name'</span>, <span class="st">'page'</span>, </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'pagei'</span>, <span class="st">'hb'</span>, <span class="st">'stanza'</span>, <span class="st">'said'</span>, <span class="st">'one'</span>, <span class="st">'say'</span>, <span class="st">'would'</span>, <span class="st">'right'</span>, <span class="st">'lnumber'</span>, <span class="st">'Quixote'</span>, <span class="st">'Sancho'</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'linenum'</span>, <span class="st">'F'</span>, <span class="st">'label'</span>, <span class="st">'label'</span>, <span class="st">'pfn'</span>, <span class="st">'F'</span>, <span class="st">'h'</span>, <span class="st">'td td'</span>, <span class="st">'Luther'</span>, <span class="st">'may'</span>, <span class="st">'see'</span>, <span class="st">'make'</span>, <span class="st">'man'</span>, <span class="st">'come'</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'b'</span>, <span class="st">'trtd'</span>, <span class="st">'thy'</span>, <span class="st">'thee'</span>, <span class="st">'like'</span>, <span class="st">'td td'</span>, <span class="st">'tr'</span>, <span class="st">'td'</span>, <span class="st">'pg'</span>, <span class="st">'could'</span>, <span class="st">'upon'</span>, <span class="st">'much'</span>, <span class="st">'made'</span>, <span class="st">'shall'</span>, <span class="st">'well'</span>])</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the text files from the directory</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> os.listdir(<span class="st">'1700-1800_texts'</span>):</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add an if statement to skip hidden directories</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> filename.startswith(<span class="st">'.'</span>):</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'1700-1800_texts/</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'ISO-8859-1'</span>) <span class="im">as</span> f:</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>            text <span class="op">+=</span> f.read()</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove non-alphabetic characters</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> re.sub(<span class="st">'[^A-Za-z]+'</span>, <span class="st">' '</span>, text)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the wordcloud</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> WordCloud(width<span class="op">=</span><span class="dv">500</span>, height<span class="op">=</span><span class="dv">600</span>, background_color<span class="op">=</span><span class="st">'black'</span>, stopwords<span class="op">=</span>custom_stopwords).generate(text)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the wordcloud</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>plt.imshow(wc, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>FileNotFoundError: [Errno 2] No such file or directory: '1700-1800_texts'</code></pre>
 </div>
 </div>
 <p>The word cloud shows the growing importance of the word “time”.</p>
@@ -777,77 +452,77 @@ Requirement already satisfied: six&gt;=1.5 in /opt/conda/lib/python3.10/site-pac
 <section id="section-1" class="level1">
 <h1>1500-1700</h1>
 <p>Between the years 1500 and 1700, the world underwent a significant transformation. This period saw the Age of Discovery, the Renaissance, the Reformation, and the Scientific Revolution. It was a time of great social, economic, and cultural changes that laid the foundation for the clock’s growing importance in the following centuries. A broader scan of the words revealed more religious words such as “heaven” and “God” being more common. Despite the transformation that occurred during this period, it is fascinating to note the non-use of the word “time”. A possibility for this is that perhaps the concept of time was still evolving in peoples’ minds, people who were farmers, agriculture workers who were not as beholden to clocks, but rather to the rise and fall of the sun and the change of seasons. Though clocks were popping up here and there, bell towers were still enough for most people. The clock as it is known today (mostly) was not adopted in households until the late 15th century, with the first watch appearing in Italy, France, and Germany in 1492, and then only in aristocratic households. From then on, the importance of time and the measurement of it became more and more prominent in people’s lives. The Industrial Revolution of the 18th and 19th centuries would further increase the importance of timekeeping, as factories needed to be run on strict schedules to maximize productivity.</p>
-<div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a custom stopwords list</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'href'</span>, <span class="st">'div'</span>, <span class="st">'span'</span>, <span class="st">'class'</span>, <span class="st">'dquo'</span>])</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'br'</span>, <span class="st">'ldquo'</span>, <span class="st">'p'</span>, <span class="st">'mdash'</span>, <span class="st">'footnote'</span>, <span class="st">'rsquo'</span>,</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'rdquo'</span>, <span class="st">'pagenum'</span>, <span class="st">'u'</span>,<span class="st">'width'</span>,<span class="st">'nbsp'</span>, <span class="st">'id'</span>, <span class="st">'FNanchor'</span>, <span class="st">'name'</span>, <span class="st">'page'</span>, </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'pagei'</span>, <span class="st">'hb'</span>, <span class="st">'stanza'</span>, <span class="st">'said'</span>, <span class="st">'one'</span>, <span class="st">'say'</span>, <span class="st">'would'</span>, <span class="st">'right'</span>, <span class="st">'lnumber'</span>, <span class="st">'Quixote'</span>, <span class="st">'Sancho'</span>,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'linenum'</span>, <span class="st">'F'</span>, <span class="st">'label'</span>, <span class="st">'label'</span>, <span class="st">'pfn'</span>, <span class="st">'F'</span>, <span class="st">'h'</span>, <span class="st">'td td'</span>, <span class="st">'Luther'</span>, <span class="st">'may'</span>, <span class="st">'see'</span>, <span class="st">'make'</span>, <span class="st">'man'</span>, <span class="st">'come'</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'b'</span>, <span class="st">'trtd'</span>, <span class="st">'thy'</span>, <span class="st">'thee'</span>, <span class="st">'like'</span>, <span class="st">'td td'</span>, <span class="st">'tr'</span>, <span class="st">'td'</span>, <span class="st">'pg'</span>, <span class="st">'love'</span>, <span class="st">'know'</span>, <span class="st">'good'</span>, <span class="st">'though'</span>, <span class="st">'shall'</span>,</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'us'</span>, <span class="st">'poem'</span>, <span class="st">'yet'</span>, <span class="st">'.'</span>, <span class="st">'let'</span>, <span class="st">'must'</span>, <span class="st">'well'</span>, <span class="st">'could'</span>, <span class="st">'project gutenberg'</span>, <span class="st">'ln'</span>])</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the text files from the directory</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> os.listdir(<span class="st">'1500-1700_texts'</span>):</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add an if statement to skip hidden directories</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> filename.startswith(<span class="st">'.'</span>):</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'1500-1700_texts/</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'ISO-8859-1'</span>) <span class="im">as</span> f:</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>            text <span class="op">+=</span> f.read()</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove non-alphabetic characters</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> re.sub(<span class="st">'[^A-Za-z]+'</span>, <span class="st">' '</span>, text)</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the wordcloud</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> WordCloud(width<span class="op">=</span><span class="dv">500</span>, height<span class="op">=</span><span class="dv">600</span>, background_color<span class="op">=</span><span class="st">'black'</span>, stopwords<span class="op">=</span>custom_stopwords).generate(text)</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the wordcloud</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>plt.imshow(wc, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a custom stopwords list</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'href'</span>, <span class="st">'div'</span>, <span class="st">'span'</span>, <span class="st">'class'</span>, <span class="st">'dquo'</span>])</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update([<span class="st">'br'</span>, <span class="st">'ldquo'</span>, <span class="st">'p'</span>, <span class="st">'mdash'</span>, <span class="st">'footnote'</span>, <span class="st">'rsquo'</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'rdquo'</span>, <span class="st">'pagenum'</span>, <span class="st">'u'</span>,<span class="st">'width'</span>,<span class="st">'nbsp'</span>, <span class="st">'id'</span>, <span class="st">'FNanchor'</span>, <span class="st">'name'</span>, <span class="st">'page'</span>, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                         <span class="st">'pagei'</span>, <span class="st">'hb'</span>, <span class="st">'stanza'</span>, <span class="st">'said'</span>, <span class="st">'one'</span>, <span class="st">'say'</span>, <span class="st">'would'</span>, <span class="st">'right'</span>, <span class="st">'lnumber'</span>, <span class="st">'Quixote'</span>, <span class="st">'Sancho'</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'linenum'</span>, <span class="st">'F'</span>, <span class="st">'label'</span>, <span class="st">'label'</span>, <span class="st">'pfn'</span>, <span class="st">'F'</span>, <span class="st">'h'</span>, <span class="st">'td td'</span>, <span class="st">'Luther'</span>, <span class="st">'may'</span>, <span class="st">'see'</span>, <span class="st">'make'</span>, <span class="st">'man'</span>, <span class="st">'come'</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'b'</span>, <span class="st">'trtd'</span>, <span class="st">'thy'</span>, <span class="st">'thee'</span>, <span class="st">'like'</span>, <span class="st">'td td'</span>, <span class="st">'tr'</span>, <span class="st">'td'</span>, <span class="st">'pg'</span>, <span class="st">'love'</span>, <span class="st">'know'</span>, <span class="st">'good'</span>, <span class="st">'though'</span>, <span class="st">'shall'</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'us'</span>, <span class="st">'poem'</span>, <span class="st">'yet'</span>, <span class="st">'.'</span>, <span class="st">'let'</span>, <span class="st">'must'</span>, <span class="st">'well'</span>, <span class="st">'could'</span>, <span class="st">'project gutenberg'</span>, <span class="st">'ln'</span>])</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the text files from the directory</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> os.listdir(<span class="st">'1500-1700_texts'</span>):</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add an if statement to skip hidden directories</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> filename.startswith(<span class="st">'.'</span>):</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'1500-1700_texts/</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'ISO-8859-1'</span>) <span class="im">as</span> f:</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>            text <span class="op">+=</span> f.read()</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove non-alphabetic characters</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> re.sub(<span class="st">'[^A-Za-z]+'</span>, <span class="st">' '</span>, text)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the wordcloud</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>wc <span class="op">=</span> WordCloud(width<span class="op">=</span><span class="dv">500</span>, height<span class="op">=</span><span class="dv">600</span>, background_color<span class="op">=</span><span class="st">'black'</span>, stopwords<span class="op">=</span>custom_stopwords).generate(text)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the wordcloud</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>plt.imshow(wc, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="FinalFinalTest_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the dataset</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data set literature.csv"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create new columns for the word counts of "time" and "god" in each book</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Time Count'</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'God Count'</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each book file and count the number of times the words "time" and "god" appear</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f'book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt'</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>            contents <span class="op">=</span> f.read()</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>            words <span class="op">=</span> contents.lower().split()</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>            time_count <span class="op">=</span> words.count(<span class="st">'time'</span>)</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>            god_count <span class="op">=</span> words.count(<span class="st">'god'</span>)</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>            df.at[i, <span class="st">'Time Count'</span>] <span class="op">=</span> time_count</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>            df.at[i, <span class="st">'God Count'</span>] <span class="op">=</span> god_count</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the dataframe to only include books published between 1500 and 1700</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="op">=</span> df[(df[<span class="st">'Date'</span>] <span class="op">&gt;=</span> <span class="dv">1500</span>) <span class="op">&amp;</span> (df[<span class="st">'Date'</span>] <span class="op">&lt;=</span> <span class="dv">1700</span>)]</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="co"># group the filtered dataframe by year and sum the word counts</span></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>grouped_df <span class="op">=</span> filtered_df.groupby(<span class="st">'Date'</span>)[[<span class="st">'Time Count'</span>, <span class="st">'God Count'</span>]].<span class="bu">sum</span>()</span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a heatmap of the word counts over the years</span></span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>sns.heatmap(grouped_df, cmap<span class="op">=</span><span class="st">"YlGnBu"</span>)</span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Usage of the words "time" and "god" in novels published from 1500 to 1902'</span>)</span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Word'</span>)</span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Year'</span>)</span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the dataset</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data set literature.csv"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create new columns for the word counts of "time" and "god" in each book</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Time Count'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'God Count'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each book file and count the number of times the words "time" and "god" appear</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="ss">f'book</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.txt'</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(filename, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'iso-8859-1'</span>) <span class="im">as</span> f:</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>            contents <span class="op">=</span> f.read()</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>            words <span class="op">=</span> contents.lower().split()</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>            time_count <span class="op">=</span> words.count(<span class="st">'time'</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>            god_count <span class="op">=</span> words.count(<span class="st">'god'</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>            df.at[i, <span class="st">'Time Count'</span>] <span class="op">=</span> time_count</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>            df.at[i, <span class="st">'God Count'</span>] <span class="op">=</span> god_count</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the dataframe to only include books published between 1500 and 1700</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="op">=</span> df[(df[<span class="st">'Date'</span>] <span class="op">&gt;=</span> <span class="dv">1500</span>) <span class="op">&amp;</span> (df[<span class="st">'Date'</span>] <span class="op">&lt;=</span> <span class="dv">1700</span>)]</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co"># group the filtered dataframe by year and sum the word counts</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>grouped_df <span class="op">=</span> filtered_df.groupby(<span class="st">'Date'</span>)[[<span class="st">'Time Count'</span>, <span class="st">'God Count'</span>]].<span class="bu">sum</span>()</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a heatmap of the word counts over the years</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>sns.heatmap(grouped_df, cmap<span class="op">=</span><span class="st">"YlGnBu"</span>)</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Usage of the words "time" and "god" in novels published from 1500 to 1902'</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Word'</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Year'</span>)</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="FinalFinalTest_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
